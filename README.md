@@ -1,0 +1,1 @@
+Testando o Wiremock para simular enpoints externos
