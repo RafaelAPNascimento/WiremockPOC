@@ -5,10 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.restassured.RestAssured;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
@@ -49,7 +47,7 @@ public abstract class AbstractTest {
 
         stubFor(
                 post(urlEqualTo(TOKEN_URI))
-                .withRequestBody(equalToJson("{ \"password\": \"123456\", \"scope\": \"CONFIRMAR_ENDERECO_COMPRADOR\", \"username\": \"totem\" }"))
+                .withRequestBody(equalToJson("{ \"password\": \"[\\d]+\", \"scope\": \"CONFIRMAR_ENDERECO_COMPRADOR\", \"username\": \"totem\" }"))
                 .willReturn(aResponse().withStatus(200).withBody(mapper.writeValueAsString(tokenRepsonse))));
     }
 
@@ -57,6 +55,7 @@ public abstract class AbstractTest {
 
         stubFor(
                 get(urlPathMatching(COMPRADOR))
+                        .withHeader("Accept", containing("*"))
                         .withHeader("Authorization", equalTo("Bearer ababababa"))
                         .willReturn(aResponse().withStatus(200)));
     }

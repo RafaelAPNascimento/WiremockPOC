@@ -5,10 +5,13 @@ import io.restassured.response.Response;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
+@RunWith(JUnit4.class)
 public class _02Test extends AbstractTest {
 
     @Test
